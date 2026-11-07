@@ -4,12 +4,13 @@ import { useMemo, useState } from "react";
 import { categories, products } from "@/data/products";
 import { ProductCard } from "@/components/site/ProductCard";
 
-type SearchParams = { categoria?: string };
+type SearchParams = { categoria?: string | undefined };
 
 export const Route = createFileRoute("/produtos")({
-  validateSearch: (s: Record<string, unknown>): SearchParams => ({
-    categoria: typeof s.categoria === "string" ? s.categoria : undefined,
-  }),
+  validateSearch: (s: Record<string, unknown>): SearchParams => {
+    const c = s["categoria"];
+    return typeof c === "string" ? { categoria: c } : {};
+  },
   head: () => ({
     meta: [
       { title: "Produtos — OE Studio" },
