@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { useMemo, useState } from "react";
-import { categories, products } from "@/data/products";
+import { categories, isCategory, matchesSearch, products } from "@/data/products";
 import { ProductCard } from "@/components/site/ProductCard";
 
 type SearchParams = { categoria?: string | undefined };
@@ -9,7 +9,7 @@ type SearchParams = { categoria?: string | undefined };
 export const Route = createFileRoute("/produtos")({
   validateSearch: (s: Record<string, unknown>): SearchParams => {
     const c = s["categoria"];
-    return typeof c === "string" ? { categoria: c } : {};
+    return typeof c === "string" && isCategory(c) ? { categoria: c } : {};
   },
   head: () => ({
     meta: [
@@ -29,12 +29,7 @@ function Produtos() {
   const [q, setQ] = useState("");
 
   const list = useMemo(() => {
-    const term = q.trim().toLowerCase();
-    return products.filter(
-      (p) =>
-        (!categoria || p.category === categoria) &&
-        (!term || `${p.name} ${p.shortDescription} ${p.description}`.toLowerCase().includes(term)),
-    );
+    return products.filter((p) => (!categoria || p.category === categoria) && matchesSearch(p, q));
   }, [categoria, q]);
 
   const pill = (active: boolean) =>

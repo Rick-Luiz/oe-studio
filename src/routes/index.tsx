@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import hero from "@/assets/hero-oe.jpg";
 import fabricacao from "@/assets/fabricacao.jpg";
-import { categories, products } from "@/data/products";
+import { categories, featuredProducts, products } from "@/data/products";
 import { ProductCard } from "@/components/site/ProductCard";
 import { ChannelsSection } from "@/components/site/ChannelsSection";
 import { whatsappLink } from "@/config/brand";
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const featured = products.filter((p) => p.featured);
+  const featured = featuredProducts();
   const catImage = (slug: string) => products.find((p) => p.category === slug)?.images[0];
   const wa = whatsappLink("Olá, OE Studio! Tenho uma ideia de peça personalizada.");
 
@@ -86,14 +86,17 @@ function Index() {
         <p className="eyebrow">Explorar</p>
         <h2 className="mt-4 text-4xl md:text-5xl">Categorias</h2>
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((c) => (
+          {categories.map((c) => {
+            const img = catImage(c.slug);
+            return (
             <Link key={c.slug} to="/produtos" search={{ categoria: c.slug }} className="group relative block aspect-[3/4] overflow-hidden rounded-sm bg-muted">
-              <img src={catImage(c.slug)} alt={c.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-105" />
+              {img && <img src={img} alt={c.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.2s] group-hover:scale-105" />}
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/70 to-transparent p-6 pt-20">
                 <p className="font-display text-3xl text-ink-foreground">{c.name}</p>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       </section>
 
