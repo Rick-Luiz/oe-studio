@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Keep catalog entries in the browser-safe static product module and render product links with TanStack Router; this showcase has no on-site checkout.
+- Use the shared Button for action controls and semantic CSS tokens for styling, so accessibility and theming remain consistent.

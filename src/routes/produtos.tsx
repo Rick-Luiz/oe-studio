@@ -17,6 +17,8 @@ export const Route = createFileRoute("/produtos")({
       { name: "description", content: "Catálogo de objetos em impressão 3D: decoração, organização, acessórios e personalizados." },
       { property: "og:title", content: "Produtos — OE Studio" },
       { property: "og:description", content: "Explore o catálogo completo da OE Studio." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Produtos,
@@ -54,6 +56,7 @@ function Produtos() {
         </div>
         <label className="flex items-center gap-3 border-b border-foreground/40 pb-2 lg:w-72">
           <Search className="h-4 w-4 text-muted-foreground" />
+          <span className="sr-only">Buscar produtos</span>
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}

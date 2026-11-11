@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
 
 const nav = [
   { to: "/", label: "Início" },
@@ -15,10 +16,10 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="container-oe flex h-18 items-center justify-between py-5">
         <Link to="/" className="flex items-baseline gap-1.5" onClick={() => setOpen(false)}>
-          <span className="font-display text-2xl tracking-tight">OE</span>
+          <span className="font-display text-2xl">OE</span>
           <span className="eyebrow">Studio</span>
         </Link>
-        <nav className="hidden items-center gap-10 md:flex">
+        <nav aria-label="Navegação principal" className="hidden items-center gap-10 md:flex">
           {nav.map((n) => (
             <Link
               key={n.to}
@@ -31,16 +32,20 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
-        <button
+        <Button
+          variant="ghost"
+          size="icon"
           className="md:hidden"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={open}
+          aria-controls="mobile-navigation"
           onClick={() => setOpen(!open)}
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </button>
+        </Button>
       </div>
       {open && (
-        <nav className="container-oe flex flex-col gap-1 pb-8 md:hidden animate-fade-up">
+        <nav id="mobile-navigation" aria-label="Navegação móvel" className="container-oe flex flex-col gap-1 pb-8 md:hidden animate-fade-up">
           {nav.map((n) => (
             <Link
               key={n.to}

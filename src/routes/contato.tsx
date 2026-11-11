@@ -9,6 +9,8 @@ export const Route = createFileRoute("/contato")({
       { name: "description", content: "Fale com a OE Studio sobre produtos e peças personalizadas em impressão 3D." },
       { property: "og:title", content: "Contato — OE Studio" },
       { property: "og:description", content: "Converse com a OE Studio sobre produtos e personalizados." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Contato,

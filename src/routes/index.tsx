@@ -14,6 +14,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Objetos de decoração, organização e acessórios criados e fabricados pela OE Studio com impressão 3D." },
       { property: "og:title", content: "OE Studio — Pequenas ideias. Grandes possibilidades." },
       { property: "og:description", content: "Conheça a coleção de objetos autorais em impressão 3D da OE Studio." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
@@ -27,10 +29,10 @@ function Index() {
   return (
     <>
       {/* Hero */}
-      <section className="container-oe grid items-center gap-12 pt-12 pb-20 md:grid-cols-12 md:pt-20">
-        <div className="md:col-span-5 animate-fade-up">
+      <section className="container-oe grid items-center gap-12 pt-12 pb-20 xl:grid-cols-12 md:pt-20">
+        <div className="min-w-0 xl:col-span-5 animate-fade-up">
           <p className="eyebrow">Design · Impressão 3D</p>
-          <h1 className="mt-6 text-5xl leading-[1.05] md:text-7xl">
+          <h1 className="mt-6 break-words text-5xl leading-[1.05] md:text-6xl xl:text-6xl">
             Pequenas ideias.<br />
             <em className="text-primary">Grandes possibilidades.</em>
           </h1>
@@ -42,7 +44,7 @@ function Index() {
             <Link to="/sobre" className="btn-oe-outline">Descobrir a OE Studio</Link>
           </div>
         </div>
-        <div className="md:col-span-7 animate-fade-up [animation-delay:150ms]">
+        <div className="min-w-0 xl:col-span-7 animate-fade-up [animation-delay:150ms]">
           <img src={hero} alt="Vaso, organizador e luminária impressos em 3D pela OE Studio" width={1600} height={1104} className="w-full rounded-sm object-cover" />
         </div>
       </section>

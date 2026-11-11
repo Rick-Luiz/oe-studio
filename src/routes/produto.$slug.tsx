@@ -3,6 +3,7 @@ import { useState } from "react";
 import { categoryName, formatPrice, getProduct, products } from "@/data/products";
 import { ProductCard } from "@/components/site/ProductCard";
 import { whatsappLink } from "@/config/brand";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/produto/$slug")({
   loader: ({ params }) => {
@@ -17,6 +18,8 @@ export const Route = createFileRoute("/produto/$slug")({
           { name: "description", content: loaderData.product.shortDescription },
           { property: "og:title", content: `${loaderData.product.name} — OE Studio` },
           { property: "og:description", content: loaderData.product.shortDescription },
+          { property: "og:type", content: "website" },
+          { name: "twitter:card", content: "summary_large_image" },
         ]
       : [{ title: "Produto não encontrado — OE Studio" }, { name: "robots", content: "noindex" }],
   }),
@@ -47,16 +50,16 @@ function ProductPage() {
             {product.images.length > 1 && (
               <div className="mt-4 flex gap-3">
                 {product.images.map((img, i) => (
-                  <button key={img} onClick={() => setActive(i)} className={`h-20 w-16 overflow-hidden rounded-sm border ${i === active ? "border-foreground" : "border-transparent opacity-60"}`}>
+                  <Button variant="ghost" key={img} aria-label={`Ver foto ${i + 1} de ${product.name}`} aria-pressed={i === active} onClick={() => setActive(i)} className={`h-20 w-16 overflow-hidden rounded-sm border p-0 ${i === active ? "border-foreground" : "border-transparent opacity-60"}`}>
                     <img src={img} alt="" className="h-full w-full object-cover" />
-                  </button>
+                  </Button>
                 ))}
               </div>
             )}
           </div>
           <div className="md:col-span-5 md:pt-6">
             <p className="eyebrow">{categoryName(product.category)}</p>
-            <h1 className="mt-4 text-5xl leading-tight">{product.name}</h1>
+            <h1 className="mt-4 break-words text-4xl leading-tight lg:text-5xl">{product.name}</h1>
             {product.price != null && <p className="mt-5 text-xl">{formatPrice(product.price)}</p>}
             <p className="mt-8 leading-relaxed text-muted-foreground">{product.description}</p>
 

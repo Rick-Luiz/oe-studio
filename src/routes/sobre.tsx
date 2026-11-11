@@ -9,6 +9,8 @@ export const Route = createFileRoute("/sobre")({
       { name: "description", content: "Conheça a OE Studio, marca independente que cria e fabrica objetos em impressão 3D." },
       { property: "og:title", content: "Sobre — OE Studio" },
       { property: "og:description", content: "Uma marca independente que desenha e fabrica seus próprios objetos." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Sobre,
