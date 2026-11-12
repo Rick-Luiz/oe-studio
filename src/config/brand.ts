@@ -5,7 +5,7 @@ export const brand = {
   tagline: "Objetos autorais fabricados em impressão 3D",
   email: "",
   /** Número com DDI e DDD, só dígitos. Ex.: "5511999999999" */
-  whatsapp: "",
+  whatsapp: "5511978235579",
   instagram: "",
   shopee: "",
   tiktokShop: "",

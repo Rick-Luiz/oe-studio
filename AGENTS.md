@@ -31,5 +31,5 @@ use the editor.
 
 ## Project rules
 
-- Keep catalog entries, categories and the color registry in the browser-safe static product module, with display logic (price, buy links, specs, search) as helpers there, so adding a product never touches components; render product links with TanStack Router; this showcase has no on-site checkout.
+- Keep catalog entries, categories and the color registry in the browser-safe static product module, with display logic (price, buy links, specs, search) as helpers there, so adding a product never touches components; render product links with TanStack Router; the cart (client-side, persisted locally) sends orders via WhatsApp and the site never processes payments.
 - Use the shared Button for action controls and semantic CSS tokens for styling, so accessibility and theming remain consistent.

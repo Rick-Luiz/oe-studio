@@ -15,6 +15,8 @@ import { ColorPicker } from "@/components/site/ProductColors";
 import { ExampleBadge } from "@/components/site/ExampleBadge";
 import { whatsappLink } from "@/config/brand";
 import { Button } from "@/components/ui/button";
+import { useCart } from "@/lib/cart";
+import type { ColorKey } from "@/data/products";
 
 export const Route = createFileRoute("/produto/$slug")({
   loader: ({ params }) => {
@@ -46,7 +48,8 @@ function ProductPage() {
 function ProductView({ product }: { product: Product }) {
   const colors = productColors(product);
   const [active, setActive] = useState(0);
-  const [color, setColor] = useState<string | null>(colors.length === 1 ? (colors[0]?.key ?? null) : null);
+  const { add } = useCart();
+  const [color, setColor] = useState<ColorKey | null>(colors.length === 1 ? (colors[0]?.key ?? null) : null);
   const selectedColor = colors.find((c) => c.key === color);
   const price = displayPrice(product);
   const specs = productSpecs(product);
@@ -95,7 +98,7 @@ function ProductView({ product }: { product: Product }) {
               </p>
             )}
 
-            <ColorPicker colors={colors} value={color} onChange={setColor} />
+            <ColorPicker colors={colors} value={color} onChange={(k) => setColor(k as ColorKey)} />
 
             {specs.length > 0 && (
               <dl className="mt-10 border-t border-border">
@@ -109,19 +112,23 @@ function ProductView({ product }: { product: Product }) {
             )}
 
             <div className="mt-10 flex flex-col gap-3">
-              {links.map((l, i) => (
-                <a key={l.channel} href={l.href} target="_blank" rel="noreferrer" className={i === 0 ? "btn-oe" : "btn-oe-outline"}>
+              <Button
+                className="btn-oe h-auto"
+                disabled={colors.length > 0 && !selectedColor}
+                onClick={() => add(product.slug, selectedColor?.key ?? null)}
+              >
+                {colors.length > 0 && !selectedColor ? "Escolha uma cor" : "Adicionar ao carrinho"}
+              </Button>
+              {links.map((l) => (
+                <a key={l.channel} href={l.href} target="_blank" rel="noreferrer" className="btn-oe-outline">
                   {l.label}
                 </a>
               ))}
               {links.length > 0 && selectedColor && colors.length > 1 && (
                 <p className="text-xs text-muted-foreground">Selecione a cor {selectedColor.name} no anúncio do marketplace.</p>
               )}
-              {links.length === 0 && (
-                <>
-                  <p className="text-sm text-muted-foreground">Em breve nos marketplaces.</p>
-                  {wa && <a href={wa} target="_blank" rel="noreferrer" className="btn-oe-outline">Perguntar no WhatsApp</a>}
-                </>
+              {links.length === 0 && wa && (
+                <a href={wa} target="_blank" rel="noreferrer" className="text-center text-sm link-underline">Tirar dúvidas no WhatsApp</a>
               )}
             </div>
           </div>

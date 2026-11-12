@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { CartButton } from "@/components/site/CartDrawer";
 
 const nav = [
   { to: "/", label: "Início" },
@@ -19,7 +20,7 @@ export function SiteHeader() {
           <span className="font-display text-2xl">OE</span>
           <span className="eyebrow">Studio</span>
         </Link>
-        <nav aria-label="Navegação principal" className="hidden items-center gap-10 md:flex">
+        <nav aria-label="Navegação principal" className="ml-auto mr-6 hidden items-center gap-10 md:flex">
           {nav.map((n) => (
             <Link
               key={n.to}
@@ -32,6 +33,8 @@ export function SiteHeader() {
             </Link>
           ))}
         </nav>
+        <div className="flex items-center gap-2 md:gap-6">
+        <CartButton />
         <Button
           variant="ghost"
           size="icon"
@@ -43,6 +46,7 @@ export function SiteHeader() {
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </Button>
+        </div>
       </div>
       {open && (
         <nav id="mobile-navigation" aria-label="Navegação móvel" className="container-oe flex flex-col gap-1 pb-8 md:hidden animate-fade-up">
