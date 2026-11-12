@@ -5,6 +5,7 @@ import {
   categoryName,
   displayPrice,
   getProduct,
+  imageForColor,
   productColors,
   productSpecs,
   products,
@@ -47,7 +48,8 @@ function ProductPage() {
 
 function ProductView({ product }: { product: Product }) {
   const colors = productColors(product);
-  const [active, setActive] = useState(0);
+  // -1 = mostrar a foto da cor escolhida; >= 0 = miniatura clicada.
+  const [active, setActive] = useState(-1);
   const { add } = useCart();
   const [color, setColor] = useState<ColorKey | null>(colors.length === 1 ? (colors[0]?.key ?? null) : null);
   const selectedColor = colors.find((c) => c.key === color);
@@ -58,7 +60,8 @@ function ProductView({ product }: { product: Product }) {
   const wa = whatsappLink(
     `Olá, OE Studio! Tenho interesse no produto ${product.name}${selectedColor ? ` na cor ${selectedColor.name}` : ""}.`,
   );
-  const image = product.images[active] ?? product.images[0];
+  const image = active >= 0 ? (product.images[active] ?? product.images[0]) : imageForColor(product, color);
+  const hasColorPhoto = Boolean(color && product.colorImages?.[color]);
 
   return (
     <>
@@ -73,13 +76,13 @@ function ProductView({ product }: { product: Product }) {
         <div className="mt-8 grid gap-12 md:grid-cols-12">
           <div className="md:col-span-7">
             <div className="relative aspect-[4/5] overflow-hidden rounded-sm bg-muted">
-              <img src={image} alt={product.name} width={1008} height={1264} className="h-full w-full object-cover animate-fade-up" key={active} />
+              <img src={image} alt={product.name} width={1008} height={1264} className="h-full w-full object-cover animate-fade-up" key={image} />
               {product.example && <ExampleBadge className="absolute left-4 top-4" />}
             </div>
             {product.images.length > 1 && (
               <div className="mt-4 flex flex-wrap gap-3">
                 {product.images.map((img, i) => (
-                  <Button variant="ghost" key={`${img}-${i}`} aria-label={`Ver foto ${i + 1} de ${product.name}`} aria-pressed={i === active} onClick={() => setActive(i)} className={`h-20 w-16 overflow-hidden rounded-sm border p-0 ${i === active ? "border-foreground" : "border-transparent opacity-60"}`}>
+                  <Button variant="ghost" key={`${img}-${i}`} aria-label={`Ver foto ${i + 1} de ${product.name}`} aria-pressed={i === active || (active < 0 && i === 0)} onClick={() => setActive(i)} className={`h-20 w-16 overflow-hidden rounded-sm border p-0 ${i === active || (active < 0 && i === 0) ? "border-foreground" : "border-transparent opacity-60"}`}>
                     <img src={img} alt="" className="h-full w-full object-cover" />
                   </Button>
                 ))}
@@ -98,7 +101,10 @@ function ProductView({ product }: { product: Product }) {
               </p>
             )}
 
-            <ColorPicker colors={colors} value={color} onChange={(k) => setColor(k as ColorKey)} />
+            <ColorPicker colors={colors} value={color} onChange={(k) => { setColor(k as ColorKey); setActive(-1); }} />
+            {selectedColor && colors.length > 1 && !hasColorPhoto && (
+              <p className="mt-3 text-xs text-muted-foreground">Foto ilustrativa — a peça é produzida na cor {selectedColor.name}.</p>
+            )}
 
             {specs.length > 0 && (
               <dl className="mt-10 border-t border-border">

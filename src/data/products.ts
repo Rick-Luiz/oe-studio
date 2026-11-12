@@ -18,6 +18,10 @@ import cabos from "@/assets/p-cabos.jpg";
 import chaveiro from "@/assets/p-chaveiro.jpg";
 import luminaria from "@/assets/p-luminaria.jpg";
 import controle from "@/assets/p-controle.jpg";
+import dragaoOliva from "@/assets/p-dragao-oliva.jpg";
+import dragaoAreia from "@/assets/p-dragao-areia.jpg";
+import cachepo from "@/assets/p-cachepo.jpg";
+import suporteCelular from "@/assets/p-suporte-celular.jpg";
 
 /* ---------------------------------- Categorias ---------------------------------- */
 export const categories = [
@@ -65,6 +69,8 @@ export interface Product {
   colors: ColorKey[];
   /** A primeira foto é a capa do produto. */
   images: string[];
+  /** Foto da peça em cada cor (opcional). Ao escolher a cor, a foto muda. */
+  colorImages?: Partial<Record<ColorKey, string>>;
   /** Link do anúncio deste produto na Shopee. */
   shopeeUrl?: string;
   /** Link do anúncio deste produto na TikTok Shop. */
@@ -106,6 +112,7 @@ export const products: Product[] = [
     dimensions: "30 × 8 × 6 cm",
     colors: ["grafite", "oliva", "areia"],
     images: [dragao],
+    colorImages: { grafite: dragao, oliva: dragaoOliva, areia: dragaoAreia },
     featured: true,
     example: true,
     extraDetails: [{ label: "Articulações", value: "Móveis, impressas em peça única" }],
@@ -193,6 +200,35 @@ export const products: Product[] = [
     images: [controle],
     example: true,
   },
+  {
+    slug: "cachepo-geometrico",
+    name: "Cachepô Geométrico",
+    shortDescription: "Facetas que valorizam suculentas e pequenas plantas.",
+    description:
+      "Cachepô de faces geométricas com acabamento em camadas finas. Perfeito para suculentas, cactos e mudas pequenas em mesas e prateleiras.",
+    category: "decoracao",
+    material: "PLA",
+    dimensions: "11 × 11 × 9 cm",
+    weight: "110 g",
+    colors: ["terracota"],
+    images: [cachepo],
+    example: true,
+    extraDetails: [{ label: "Uso", value: "Suculentas e plantas pequenas" }],
+  },
+  {
+    slug: "suporte-para-celular",
+    name: "Suporte para Celular",
+    shortDescription: "Seu celular em pé, no ângulo certo.",
+    description:
+      "Suporte de mesa com inclinação confortável para chamadas de vídeo, receitas ou acompanhar notificações enquanto trabalha.",
+    category: "acessorios",
+    material: "PLA",
+    dimensions: "8 × 9 × 11 cm",
+    weight: "70 g",
+    colors: ["branco"],
+    images: [suporteCelular],
+    example: true,
+  },
 ];
 
 /* --------------------------- Funções auxiliares (não editar) --------------------------- */
@@ -208,6 +244,10 @@ export const featuredProducts = () => products.filter((p) => p.featured);
 
 export const formatPrice = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+/** Foto da peça na cor escolhida; sem foto cadastrada para a cor, usa a capa. */
+export const imageForColor = (p: Pick<Product, "images" | "colorImages">, color?: string | null) =>
+  (color && p.colorImages?.[color as ColorKey]) || p.images[0];
 
 /** Preço formatado, ou `null` quando o produto não tem preço definido. */
 export const displayPrice = (p: Pick<Product, "price">): string | null =>

@@ -4,6 +4,7 @@ import {
   categories,
   colors,
   displayPrice,
+  imageForColor,
   matchesSearch,
   productColors,
   productSpecs,
@@ -54,6 +55,21 @@ describe("Cores", () => {
   });
   it("todos os produtos usam apenas cores cadastradas", () => {
     for (const p of products) for (const c of p.colors) expect(colors).toHaveProperty(c);
+  });
+});
+
+describe("Foto por cor", () => {
+  it("mostra a foto da cor escolhida quando cadastrada", () => {
+    const p = { images: ["/capa.jpg"], colorImages: { oliva: "/verde.jpg" } };
+    expect(imageForColor(p, "oliva")).toBe("/verde.jpg");
+  });
+  it("usa a capa quando a cor não tem foto ou nenhuma cor foi escolhida", () => {
+    const p = { images: ["/capa.jpg"], colorImages: { oliva: "/verde.jpg" } };
+    expect(imageForColor(p, "areia")).toBe("/capa.jpg");
+    expect(imageForColor(p, null)).toBe("/capa.jpg");
+  });
+  it("fotos por cor só usam cores do próprio produto", () => {
+    for (const p of products) for (const c of Object.keys(p.colorImages ?? {})) expect(p.colors).toContain(c);
   });
 });
 

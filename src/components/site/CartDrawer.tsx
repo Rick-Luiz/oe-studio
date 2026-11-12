@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { colors, displayPrice, formatPrice, getProduct } from "@/data/products";
+import { colors, displayPrice, formatPrice, getProduct, imageForColor } from "@/data/products";
 import { cartTotal, MAX_QTY, orderMessage } from "@/lib/cart-logic";
 import { useCart } from "@/lib/cart";
 import { whatsappLink } from "@/config/brand";
@@ -48,7 +48,7 @@ export function CartDrawer() {
                 const price = displayPrice(p);
                 return (
                   <li key={`${i.slug}-${i.color}`} className="flex gap-4 py-5">
-                    <img src={p.images[0]} alt={p.name} className="h-24 w-20 shrink-0 rounded-sm object-cover" />
+                    <img src={imageForColor(p, i.color)} alt={p.name} className="h-24 w-20 shrink-0 rounded-sm object-cover" />
                     <div className="flex min-w-0 flex-1 flex-col">
                       <p className="font-display text-lg leading-tight">{p.name}</p>
                       {i.color && (
