@@ -46,7 +46,7 @@ function ProductPage() {
 function ProductView({ product }: { product: Product }) {
   const colors = productColors(product);
   const [active, setActive] = useState(0);
-  const [color, setColor] = useState<string | null>(colors.length === 1 ? colors[0].key : null);
+  const [color, setColor] = useState<string | null>(colors.length === 1 ? (colors[0]?.key ?? null) : null);
   const selectedColor = colors.find((c) => c.key === color);
   const price = displayPrice(product);
   const specs = productSpecs(product);

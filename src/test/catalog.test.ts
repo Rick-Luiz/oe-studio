@@ -35,7 +35,7 @@ describe("Preço", () => {
 
 describe("Botões de compra", () => {
   it("não aparecem sem links cadastrados", () => {
-    expect(buyLinks({ shopeeUrl: "", tiktokUrl: undefined })).toEqual([]);
+    expect(buyLinks({ shopeeUrl: "" })).toEqual([]);
   });
   it("mostram apenas o marketplace cadastrado, apontando para o anúncio do produto", () => {
     const links = buyLinks({ tiktokUrl: "https://shop.tiktok.com/view/product/123" });
