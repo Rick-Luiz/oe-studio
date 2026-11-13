@@ -66,3 +66,21 @@ export function parseCart(raw: string | null): CartItem[] {
     return [];
   }
 }
+
+/** Item no formato do Mercado Pago (preço sempre vem do catálogo, nunca do navegador). */
+export type PaymentLine = { id: string; title: string; quantity: number; unit_price: number; currency_id: "BRL" };
+
+/** Itens para pagamento online, ou null se o carrinho estiver vazio ou algum item não tiver preço. */
+export function paymentLines(items: CartItem[]): PaymentLine[] | null {
+  if (items.length === 0 || cartTotal(items) == null) return null;
+  return items.map((i) => {
+    const p = getProduct(i.slug)!;
+    return {
+      id: i.color ? `${p.slug}-${i.color}` : p.slug,
+      title: i.color ? `${p.name} — ${colors[i.color].name}` : p.name,
+      quantity: i.qty,
+      unit_price: p.price!,
+      currency_id: "BRL",
+    };
+  });
+}
