@@ -5,8 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -48,29 +49,32 @@
 
 :root {
   --radius: 0.375rem;
-  --background: oklch(0.975 0.012 85);
-  --foreground: oklch(0.26 0.008 80);
-  --card: oklch(0.99 0.006 85);
-  --card-foreground: oklch(0.26 0.008 80);
-  --popover: oklch(0.99 0.006 85);
-  --popover-foreground: oklch(0.26 0.008 80);
-  --primary: oklch(0.47 0.06 120);
-  --primary-foreground: oklch(0.975 0.012 85);
-  --secondary: oklch(0.93 0.022 80);
-  --secondary-foreground: oklch(0.26 0.008 80);
-  --muted: oklch(0.945 0.016 82);
-  --muted-foreground: oklch(0.5 0.012 80);
-  --accent: oklch(0.88 0.035 78);
-  --accent-foreground: oklch(0.26 0.008 80);
-  --destructive: oklch(0.577 0.245 27.325);
+  --background: oklch(0.165 0.008 260);
+  --foreground: oklch(0.96 0.004 260);
+  --card: oklch(0.2 0.009 260);
+  --card-foreground: oklch(0.96 0.004 260);
+  --popover: oklch(0.2 0.009 260);
+  --popover-foreground: oklch(0.96 0.004 260);
+  --primary: oklch(0.72 0.19 48);
+  --primary-foreground: oklch(0.16 0.01 260);
+  --primary-glow: oklch(0.8 0.17 60);
+  --secondary: oklch(0.205 0.009 260);
+  --secondary-foreground: oklch(0.96 0.004 260);
+  --muted: oklch(0.235 0.009 260);
+  --muted-foreground: oklch(0.72 0.01 260);
+  --accent: oklch(0.27 0.012 260);
+  --accent-foreground: oklch(0.96 0.004 260);
+  --destructive: oklch(0.62 0.22 27);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.88 0.018 80);
-  --input: oklch(0.88 0.018 80);
-  --ring: oklch(0.47 0.06 120);
-  --ink: oklch(0.27 0.006 80);
-  --ink-foreground: oklch(0.95 0.014 85);
-  --olive: oklch(0.47 0.06 120);
-  --sand: oklch(0.88 0.035 78);
+  --border: oklch(0.3 0.01 260);
+  --input: oklch(0.3 0.01 260);
+  --ring: oklch(0.72 0.19 48);
+  --ink: oklch(0.12 0.006 260);
+  --ink-foreground: oklch(0.96 0.004 260);
+  --olive: oklch(0.8 0.17 60);
+  --sand: oklch(0.88 0.01 260);
+  --grid-line: oklch(0.96 0.004 260 / 0.05);
+  --shadow-glow: 0 20px 60px -20px color-mix(in oklab, var(--primary) 45%, transparent);
   --sidebar: var(--background);
   --sidebar-foreground: var(--foreground);
   --sidebar-primary: var(--primary);
@@ -96,8 +100,8 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: 0;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 }
 
@@ -112,11 +116,30 @@
 }
 
 @utility eyebrow {
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  letter-spacing: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--muted-foreground);
+  color: var(--primary);
+  &::before {
+    content: "// ";
+    opacity: 0.6;
+  }
+}
+
+@utility font-mono {
+  font-family: var(--font-mono);
+}
+
+@utility bg-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+@utility shadow-glow {
+  box-shadow: var(--shadow-glow);
 }
 
 @utility btn-oe {
@@ -125,15 +148,17 @@
   justify-content: center;
   gap: 0.6rem;
   padding: 0.95rem 1.75rem;
-  border-radius: 999px;
+  border-radius: 0.25rem;
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0;
   transition: all 0.35s ease;
-  background: var(--ink);
-  color: var(--ink-foreground);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 600;
   &:hover {
-    background: var(--olive);
+    background: var(--primary-glow);
+    box-shadow: var(--shadow-glow);
   }
 }
 
@@ -143,16 +168,16 @@
   justify-content: center;
   gap: 0.6rem;
   padding: 0.95rem 1.75rem;
-  border-radius: 999px;
+  border-radius: 0.25rem;
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0;
   transition: all 0.35s ease;
-  border: 1px solid var(--foreground);
+  border: 1px solid var(--border);
   color: var(--foreground);
   &:hover {
-    background: var(--foreground);
-    color: var(--background);
+    border-color: var(--primary);
+    color: var(--primary);
   }
 }
 
@@ -162,14 +187,15 @@
   justify-content: center;
   gap: 0.6rem;
   padding: 0.95rem 1.75rem;
-  border-radius: 999px;
+  border-radius: 0.25rem;
   font-size: 0.875rem;
   font-weight: 500;
   transition: all 0.35s ease;
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--ink);
+  color: var(--ink-foreground);
+  font-weight: 600;
   &:hover {
-    background: var(--sand);
+    background: var(--background);
   }
 }
 

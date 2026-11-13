@@ -29,12 +29,13 @@ function Index() {
   return (
     <>
       {/* Hero */}
-      <section className="container-oe grid items-center gap-12 pt-12 pb-20 xl:grid-cols-12 md:pt-20">
+      <section className="relative border-b border-border bg-grid">
+      <div className="container-oe grid items-center gap-12 pt-12 pb-20 xl:grid-cols-12 md:pt-20">
         <div className="min-w-0 xl:col-span-5 animate-fade-up">
-          <p className="eyebrow">Design · Impressão 3D</p>
+          <p className="eyebrow">Impressão 3D · Design autoral</p>
           <h1 className="mt-6 break-words text-5xl leading-[1.05] md:text-6xl xl:text-6xl">
             Pequenas ideias.<br />
-            <em className="text-primary">Grandes possibilidades.</em>
+            <span className="text-primary">Grandes possibilidades.</span>
           </h1>
           <p className="mt-8 max-w-md text-muted-foreground">
             Transformamos criatividade em objetos reais. Conheça nossa coleção de produtos desenvolvidos e fabricados com impressão 3D.
@@ -43,10 +44,23 @@ function Index() {
             <Link to="/produtos" search={{}} className="btn-oe">Conhecer produtos <ArrowRight className="h-4 w-4" /></Link>
             <Link to="/sobre" className="btn-oe-outline">Descobrir a OE Studio</Link>
           </div>
+          <dl className="mt-12 grid max-w-md grid-cols-3 gap-px overflow-hidden rounded-sm border border-border bg-border font-mono">
+            {[
+              ["0,2 mm", "camada"],
+              ["PLA · PETG", "materiais"],
+              ["100%", "própria"],
+            ].map(([v, l]) => (
+              <div key={l} className="bg-background px-4 py-3">
+                <dt className="text-[0.65rem] uppercase text-muted-foreground">{l}</dt>
+                <dd className="mt-1 text-sm text-foreground">{v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
         <div className="min-w-0 xl:col-span-7 animate-fade-up [animation-delay:150ms]">
-          <img src={hero} alt="Vaso, organizador e luminária impressos em 3D pela OE Studio" width={1600} height={1104} className="w-full rounded-sm object-cover" />
+          <img src={hero} alt="Impressora 3D da OE Studio fabricando um vaso, com dragão articulado e outras peças impressas" width={1536} height={1056} className="w-full rounded-sm border border-border object-cover shadow-glow" />
         </div>
+      </div>
       </section>
 
       {/* Destaques */}
@@ -103,7 +117,7 @@ function Index() {
       {/* Personalizados */}
       <section className="container-oe mt-32">
         <div className="rounded-sm bg-primary px-8 py-20 text-center text-primary-foreground md:px-20">
-          <p className="eyebrow text-primary-foreground/70">Personalizados</p>
+          <p className="eyebrow text-primary-foreground/80">Personalizados</p>
           <h2 className="mx-auto mt-5 max-w-3xl text-4xl leading-tight md:text-6xl">Tem uma ideia? Vamos dar forma a ela.</h2>
           <p className="mx-auto mt-8 max-w-xl opacity-80">
             Também desenvolvemos peças sob medida: presentes, objetos com nomes, suportes específicos e muito mais — conforme a viabilidade de fabricação.

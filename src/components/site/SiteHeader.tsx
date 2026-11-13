@@ -16,9 +16,9 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/85 backdrop-blur-md">
       <div className="container-oe flex h-18 items-center justify-between py-5">
-        <Link to="/" className="flex items-baseline gap-1.5" onClick={() => setOpen(false)}>
-          <span className="font-display text-2xl">OE</span>
-          <span className="eyebrow">Studio</span>
+        <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
+          <span className="flex h-9 w-9 items-center justify-center rounded-sm bg-primary font-display text-lg font-bold text-primary-foreground">OE</span>
+          <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Studio <span className="text-primary">3D</span></span>
         </Link>
         <nav aria-label="Navegação principal" className="ml-auto mr-6 hidden items-center gap-10 md:flex">
           {nav.map((n) => (

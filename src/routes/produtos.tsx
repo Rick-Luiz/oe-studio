@@ -33,7 +33,7 @@ function Produtos() {
   }, [categoria, q]);
 
   const pill = (active: boolean) =>
-    `rounded-full border px-5 py-2 text-sm transition-colors ${active ? "border-foreground bg-foreground text-background" : "border-border hover:border-foreground"}`;
+    `rounded-sm border px-4 py-2 font-mono text-xs uppercase transition-colors ${active ? "border-primary bg-primary text-primary-foreground" : "border-border hover:border-primary hover:text-primary"}`;
 
   return (
     <section className="container-oe pt-16">

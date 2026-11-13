@@ -11,10 +11,10 @@ export function SiteFooter() {
   ].filter((c) => c.href);
 
   return (
-    <footer className="mt-32 bg-ink text-ink-foreground">
+    <footer className="mt-32 border-t border-border bg-ink text-ink-foreground">
       <div className="container-oe grid gap-14 py-20 md:grid-cols-4">
         <div className="md:col-span-2">
-          <p className="font-display text-4xl">OE Studio</p>
+          <p className="font-display text-4xl font-bold">OE Studio <span className="text-primary">3D</span></p>
           <p className="mt-4 max-w-sm text-sm opacity-70">
             Objetos autorais criados e fabricados por nós, camada por camada, com impressão 3D.
           </p>
