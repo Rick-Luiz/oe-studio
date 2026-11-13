@@ -99,6 +99,7 @@ export const products: Product[] = [
     images: [vaso],
     featured: true,
     example: true,
+    price: 1, // valor de teste — trocar pelo preço real
     extraDetails: [{ label: "Uso", value: "Flores secas e decoração" }],
   },
   {
@@ -115,6 +116,7 @@ export const products: Product[] = [
     colorImages: { grafite: dragao, oliva: dragaoOliva, areia: dragaoAreia },
     featured: true,
     example: true,
+    price: 1, // valor de teste — trocar pelo preço real
     extraDetails: [{ label: "Articulações", value: "Móveis, impressas em peça única" }],
   },
   {
@@ -131,6 +133,7 @@ export const products: Product[] = [
     images: [organizador],
     featured: true,
     example: true,
+    price: 1, // valor de teste — trocar pelo preço real
     extraDetails: [{ label: "Compartimentos", value: "Canetas, notas e objetos pequenos" }],
   },
   {
@@ -146,6 +149,7 @@ export const products: Product[] = [
     images: [headset],
     featured: true,
     example: true,
+    price: 1, // valor de teste — trocar pelo preço real
   },
   {
     slug: "kit-organizador-de-cabos",
@@ -159,6 +163,7 @@ export const products: Product[] = [
     colors: ["oliva", "areia", "branco"],
     images: [cabos],
     example: true,
+    price: 1, // valor de teste — trocar pelo preço real
   },
   {
     slug: "chaveiro-personalizado",
@@ -172,6 +177,7 @@ export const products: Product[] = [
     colors: ["oliva", "terracota", "areia", "preto"],
     images: [chaveiro],
     example: true,
+    price: 1, // valor de teste — trocar pelo preço real
     extraDetails: [{ label: "Personalização", value: "Letras, nomes ou formas" }],
   },
   {
@@ -186,6 +192,7 @@ export const products: Product[] = [
     colors: ["branco", "areia"],
     images: [luminaria],
     example: true,
+    price: 1, // valor de teste — trocar pelo preço real
   },
   {
     slug: "suporte-para-controle",
@@ -199,6 +206,7 @@ export const products: Product[] = [
     colors: ["preto", "grafite"],
     images: [controle],
     example: true,
+    price: 1, // valor de teste — trocar pelo preço real
   },
   {
     slug: "cachepo-geometrico",
@@ -213,6 +221,7 @@ export const products: Product[] = [
     colors: ["terracota"],
     images: [cachepo],
     example: true,
+    price: 1, // valor de teste — trocar pelo preço real
     extraDetails: [{ label: "Uso", value: "Suculentas e plantas pequenas" }],
   },
   {
@@ -228,6 +237,7 @@ export const products: Product[] = [
     colors: ["branco"],
     images: [suporteCelular],
     example: true,
+    price: 1, // valor de teste — trocar pelo preço real
   },
 ];
 
