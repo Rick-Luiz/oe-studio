@@ -7,7 +7,7 @@ type Status = "aprovado" | "pendente" | "recusado";
 const STATUSES: Status[] = ["aprovado", "pendente", "recusado"];
 
 export const Route = createFileRoute("/pedido")({
-  validateSearch: (s: Record<string, unknown>): { status?: Status; payment_id?: string } => ({
+  validateSearch: (s: Record<string, unknown>): { status?: Status | undefined; payment_id?: string | undefined } => ({
     status: STATUSES.includes(s["status"] as Status) ? (s["status"] as Status) : undefined,
     payment_id: typeof s["payment_id"] === "string" || typeof s["payment_id"] === "number" ? String(s["payment_id"]).slice(0, 40) : undefined,
   }),
