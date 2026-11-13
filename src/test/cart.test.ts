@@ -19,7 +19,7 @@ describe("Carrinho", () => {
     expect(setQty(c, "vaso-organico", "oliva", 0)).toEqual([]);
   });
   it("total fica a combinar quando falta preço", () => {
-    products.push({ ...products[0]!, slug: "sem-preco", price: undefined, colors: ["oliva"] });
+    { const { price: _p, ...base } = products[0]!; products.push({ ...base, slug: "sem-preco", colors: ["oliva"] }); }
     try { expect(cartTotal(addToCart([], "sem-preco", "oliva"))).toBeNull(); } finally { products.pop(); }
   });
   it("mensagem do pedido lista produto, quantidade e cor", () => {
@@ -32,7 +32,7 @@ describe("Carrinho", () => {
   });
   it("pagamento online bloqueado quando falta preço ou o carrinho está vazio", () => {
     expect(paymentLines([])).toBeNull();
-    products.push({ ...products[0]!, slug: "sem-preco", price: undefined, colors: ["oliva"] });
+    { const { price: _p, ...base } = products[0]!; products.push({ ...base, slug: "sem-preco", colors: ["oliva"] }); }
     try { expect(paymentLines(addToCart([], "sem-preco", "oliva"))).toBeNull(); } finally { products.pop(); }
   });
   it("pagamento online usa o preço do catálogo e a cor escolhida", () => {
