@@ -80,9 +80,8 @@ describe("Catálogo", () => {
     const cats = categories.map((c) => c.slug) as string[];
     for (const p of products) expect(cats).toContain(p.category);
   });
-  it("ficha técnica omite o peso quando não informado", () => {
-    expect(productSpecs(base).map((s) => s.label)).toEqual(["Material", "Dimensões"]);
-    expect(productSpecs({ ...base, weight: "80 g" }).map((s) => s.label)).toContain("Peso aproximado");
+  it("especificações mostram só material e tamanho", () => {
+    expect(productSpecs(base).map((s) => s.label)).toEqual(["Material", "Tamanho"]);
   });
   it("busca encontra por cor e material, ignorando acentos", () => {
     expect(matchesSearch(base, "areia")).toBe(true);

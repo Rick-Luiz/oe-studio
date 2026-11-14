@@ -29,7 +29,7 @@ function Sobre() {
       <section className="container-oe pt-16">
         <p className="eyebrow">Sobre</p>
         <h1 className="mt-4 max-w-4xl text-5xl leading-[1.05] md:text-7xl">
-          Uma marca independente que <em className="text-primary">desenha e fabrica</em> seus próprios objetos.
+          Uma marca independente que <span className="text-primary">desenha e fabrica</span> seus próprios objetos.
         </h1>
         <img src={hero} alt="Produtos OE Studio" width={1600} height={1104} className="mt-16 aspect-[16/8] w-full rounded-sm object-cover" />
       </section>

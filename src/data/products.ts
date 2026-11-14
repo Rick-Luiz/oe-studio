@@ -6,7 +6,7 @@
 //   filtros, no rodapé e na página inicial automaticamente).
 // • Nova cor: adicione uma linha em `colors`. Um produto só pode usar cores
 //   cadastradas aqui — o site não aceita outras.
-// • Campos opcionais (preço, peso, links) ficam ocultos no site quando vazios.
+// • Campos opcionais (preço, links) ficam ocultos no site quando vazios.
 // • Produtos de demonstração têm `example: true` e aparecem com o selo
 //   "Exemplo". Ao cadastrar um produto real, remova essa linha.
 // ============================================================================
@@ -63,8 +63,6 @@ export interface Product {
   material: string;
   /** Ex.: "12 × 12 × 18 cm". */
   dimensions: string;
-  /** Peso aproximado. Ex.: "120 g". Opcional. */
-  weight?: string;
   /** Cores disponíveis — apenas chaves cadastradas em `colors`. */
   colors: ColorKey[];
   /** A primeira foto é a capa do produto. */
@@ -79,8 +77,6 @@ export interface Product {
   featured?: boolean;
   /** Produto de demonstração. Remova ao cadastrar o produto real. */
   example?: boolean;
-  /** Informações extras opcionais, exibidas na ficha técnica. */
-  extraDetails?: { label: string; value: string }[];
 }
 
 /* ----------------------------------- Catálogo ----------------------------------- */
@@ -94,20 +90,18 @@ export const products: Product[] = [
     category: "decoracao",
     material: "PLA",
     dimensions: "12 × 12 × 20 cm",
-    weight: "150 g",
     colors: ["oliva", "areia", "terracota"],
     images: [vaso],
     featured: true,
     example: true,
     price: 1, // valor de teste — trocar pelo preço real
-    extraDetails: [{ label: "Uso", value: "Flores secas e decoração" }],
   },
   {
     slug: "dragao-articulado",
     name: "Dragão Articulado",
     shortDescription: "Uma escultura que se move, peça por peça.",
     description:
-      "Impresso já montado, com articulações que permitem posar o dragão de diferentes formas. Um objeto colecionável para estantes e mesas.",
+      "Chega já montado, com articulações que permitem posar o dragão de diferentes formas. Um objeto colecionável para estantes e mesas.",
     category: "decoracao",
     material: "PLA",
     dimensions: "30 × 8 × 6 cm",
@@ -117,7 +111,6 @@ export const products: Product[] = [
     featured: true,
     example: true,
     price: 1, // valor de teste — trocar pelo preço real
-    extraDetails: [{ label: "Articulações", value: "Móveis, impressas em peça única" }],
   },
   {
     slug: "organizador-de-mesa",
@@ -128,13 +121,11 @@ export const products: Product[] = [
     category: "organizacao",
     material: "PLA",
     dimensions: "20 × 10 × 9 cm",
-    weight: "180 g",
     colors: ["bege", "grafite", "branco"],
     images: [organizador],
     featured: true,
     example: true,
     price: 1, // valor de teste — trocar pelo preço real
-    extraDetails: [{ label: "Compartimentos", value: "Canetas, notas e objetos pequenos" }],
   },
   {
     slug: "suporte-para-headset",
@@ -178,14 +169,13 @@ export const products: Product[] = [
     images: [chaveiro],
     example: true,
     price: 1, // valor de teste — trocar pelo preço real
-    extraDetails: [{ label: "Personalização", value: "Letras, nomes ou formas" }],
   },
   {
     slug: "luminaria-decorativa",
     name: "Luminária Decorativa",
-    shortDescription: "Luz suave filtrada por camadas ondulantes.",
+    shortDescription: "Luz suave e acolhedora para qualquer canto.",
     description:
-      "A cúpula impressa em camadas finas difunde a luz de forma acolhedora, criando um clima calmo no ambiente.",
+      "A cúpula ondulada difunde a luz de forma acolhedora, criando um clima calmo no ambiente.",
     category: "decoracao",
     material: "PLA",
     dimensions: "16 × 16 × 24 cm",
@@ -213,16 +203,14 @@ export const products: Product[] = [
     name: "Cachepô Geométrico",
     shortDescription: "Facetas que valorizam suculentas e pequenas plantas.",
     description:
-      "Cachepô de faces geométricas com acabamento em camadas finas. Perfeito para suculentas, cactos e mudas pequenas em mesas e prateleiras.",
+      "Cachepô de faces geométricas com acabamento fosco. Perfeito para suculentas, cactos e mudas pequenas em mesas e prateleiras.",
     category: "decoracao",
     material: "PLA",
     dimensions: "11 × 11 × 9 cm",
-    weight: "110 g",
     colors: ["terracota"],
     images: [cachepo],
     example: true,
     price: 1, // valor de teste — trocar pelo preço real
-    extraDetails: [{ label: "Uso", value: "Suculentas e plantas pequenas" }],
   },
   {
     slug: "suporte-para-celular",
@@ -233,7 +221,6 @@ export const products: Product[] = [
     category: "acessorios",
     material: "PLA",
     dimensions: "8 × 9 × 11 cm",
-    weight: "70 g",
     colors: ["branco"],
     images: [suporteCelular],
     example: true,
@@ -291,13 +278,11 @@ export const buyLinks = (p: Pick<Product, "shopeeUrl" | "tiktokUrl">): BuyLink[]
   return links;
 };
 
-/** Ficha técnica exibida na página do produto (campos vazios ficam de fora). */
-export const productSpecs = (p: Product) =>
+/** Especificações exibidas na página do produto: só material e tamanho (vazios ficam de fora). */
+export const productSpecs = (p: Pick<Product, "material" | "dimensions">) =>
   [
     { label: "Material", value: p.material },
-    { label: "Dimensões", value: p.dimensions },
-    { label: "Peso aproximado", value: p.weight },
-    ...(p.extraDetails ?? []),
+    { label: "Tamanho", value: p.dimensions },
   ].filter((d): d is { label: string; value: string } => Boolean(d.value?.trim()));
 
 const normalize = (s: string) => s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
